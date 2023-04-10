@@ -106,9 +106,13 @@ namespace TCP
         public void SendToClient(string From, string To, string message, List<ClientsInfo> CI)
         {
             var clients = CI.FirstOrDefault(c => c.Login == To);
-            Socket handler = clients.ClientSocket;
-            byte[] data = Encoding.Unicode.GetBytes(From + "#" + To + "#" + message);
-            handler.Send(data);
+            if (clients != null)
+            {
+                Socket handler = clients.ClientSocket;
+                byte[] data = Encoding.Unicode.GetBytes(From + "#" + To + "#" + message);
+                handler.Send(data);
+            }
+            
         }
     }
-}
+    }
